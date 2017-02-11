@@ -10,7 +10,7 @@ import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
-public class Processing {
+public class Processing_LT {
 
 	static{ 
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);

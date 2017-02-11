@@ -10,14 +10,13 @@ import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
-public class Processing {
+public class Processing_BT {
 
 	static{ 
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
 	}
 //	Process for GRIP	
-	static LiftTracker tracker;
 	public static VideoCapture videoCapture;
 //	Constants for known variables
 	static Mat matOriginal;
@@ -40,13 +39,11 @@ public class Processing {
 		NetworkTable.setTeam(1806);
 		NetworkTable.setIPAddress("roborio-1806-frc.local");
 		NetworkTable.initialize();
-		table = NetworkTable.getTable("LiftTracker");
 		
 		while(shouldRun){
 			try {
 //				opens up the camera stream and tries to load it
 				videoCapture = new VideoCapture();
-				tracker = new LiftTracker();
 				videoCapture.open("http://roborio-1806-frc.local:1181/?action=stream");
 				// change that to your team number boi("http://roborio-XXXX-frc.local:1181/?action=stream");
 				while(!videoCapture.isOpened()){
