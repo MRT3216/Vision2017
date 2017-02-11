@@ -17,6 +17,7 @@ public class Processing_BT {
 
 	}
 //	Process for GRIP	
+	static BoilerTracker tracker;
 	public static VideoCapture videoCapture;
 //	Constants for known variables
 	static Mat matOriginal;
@@ -39,11 +40,13 @@ public class Processing_BT {
 		NetworkTable.setTeam(1806);
 		NetworkTable.setIPAddress("roborio-1806-frc.local");
 		NetworkTable.initialize();
+		table = NetworkTable.getTable("BoilerTracker");
 		
 		while(shouldRun){
 			try {
 //				opens up the camera stream and tries to load it
 				videoCapture = new VideoCapture();
+				tracker = new BoilerTracker();
 				videoCapture.open("http://roborio-1806-frc.local:1181/?action=stream");
 				// change that to your team number boi("http://roborio-XXXX-frc.local:1181/?action=stream");
 				while(!videoCapture.isOpened()){
