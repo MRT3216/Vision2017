@@ -33,7 +33,7 @@ public class Processing_BT {
 	public static void main(String[] args) {
 		NetworkTable.setClientMode();
 		NetworkTable.setTeam(1806);
-		NetworkTable.setIPAddress("roborio-3216-frc.local");
+		NetworkTable.setIPAddress("roborio-3216-FRC.local");
 		NetworkTable.initialize();
 		table = NetworkTable.getTable("BoilerTracker");
 
