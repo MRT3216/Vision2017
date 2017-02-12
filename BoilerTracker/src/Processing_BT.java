@@ -74,7 +74,6 @@ public class Processing_BT {
 			videoCapture.read(matOriginal);
 			tracker.process(matOriginal);
 			returnCenterX();
-			System.out.println(getAngle());
 			table.putNumber("distanceFromTarget", distanceFromTarget());
 			table.putNumber("angleFromGoal", getAngle());
 			table.putNumberArray("centerX", centerX);
@@ -89,7 +88,7 @@ public class Processing_BT {
 			Rect r1 = Imgproc.boundingRect(tracker.filterContoursOutput.get(0));
 			centerX = new double[] { r1.x + (r1.width / 2), r.x + (r.width / 2) };
 			Imgcodecs.imwrite("output.png", matOriginal);
-			// System.out.println(centerX.length); //testing
+			System.out.println("Center: " + centerX.length); // testing
 			// this again checks for the 2 shapes on the target
 			if (centerX.length == 2) {
 				// subtracts one another to get length in pixels
@@ -100,8 +99,9 @@ public class Processing_BT {
 	}
 
 	public static double distanceFromTarget() {
-		// distance costant divided by length between centers of contours
+		// distance constant divided by length between centers of contours
 		distanceFromTarget = DISTANCE_CONSTANT / lengthBetweenContours;
+		System.out.println("Distance: " + (distanceFromTarget - OFFSET_TO_FRONT)); // testing
 		return distanceFromTarget - OFFSET_TO_FRONT;
 	}
 
@@ -122,7 +122,7 @@ public class Processing_BT {
 				angleToGoal = Math.atan(distanceFromCenterInch / distanceFromTarget());
 				angleToGoal = Math.toDegrees(angleToGoal);
 				// prints angle
-				// System.out.println("Angle: " + angleToGoal);
+				System.out.println("Angle: " + angleToGoal); // testing
 			}
 		}
 		return angleToGoal;
