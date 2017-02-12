@@ -24,7 +24,7 @@ public class Processing_BT {
 	public static final double WIDTH_BETWEEN_TARGET = 8.5;
 	public static boolean shouldRun = true;
 	
-	public static final boolean enableNetworkTables = false;
+	public static final boolean enableNetworkTables = false; 
 	static NetworkTable table;
 
 	static double lengthBetweenContours;
