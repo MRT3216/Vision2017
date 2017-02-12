@@ -23,6 +23,8 @@ public class Processing_BT {
 	public static final double DISTANCE_CONSTANT = 5738;
 	public static final double WIDTH_BETWEEN_TARGET = 8.5;
 	public static boolean shouldRun = true;
+	
+	public static final boolean enableNetworkTables = false;
 	static NetworkTable table;
 
 	static double lengthBetweenContours;
@@ -31,11 +33,13 @@ public class Processing_BT {
 	static double[] centerX;
 
 	public static void main(String[] args) {
-		NetworkTable.setClientMode();
-		NetworkTable.setTeam(1806);
-		NetworkTable.setIPAddress("roborio-3216-FRC.local");
-		NetworkTable.initialize();
-		table = NetworkTable.getTable("BoilerTracker");
+		if(enableNetworkTables) {
+			NetworkTable.setClientMode();
+			NetworkTable.setTeam(1806);
+			NetworkTable.setIPAddress("roborio-3216-FRC.local");
+			NetworkTable.initialize();
+			table = NetworkTable.getTable("BoilerTracker");
+		}
 
 		while (shouldRun) {
 			try {
@@ -74,9 +78,16 @@ public class Processing_BT {
 			videoCapture.read(matOriginal);
 			tracker.process(matOriginal);
 			returnCenterX();
-			table.putNumber("distanceFromTarget", distanceFromTarget());
-			table.putNumber("angleFromGoal", getAngle());
-			table.putNumberArray("centerX", centerX);
+			if(enableNetworkTables) {
+				table.putNumber("distanceFromTarget", distanceFromTarget());
+				table.putNumber("angleFromGoal", getAngle());
+				table.putNumberArray("centerX", centerX);
+			}
+			else {
+				// Just call to test
+				distanceFromTarget();
+				getAngle();
+			}			
 			videoCapture.read(matOriginal);
 		}
 	}
