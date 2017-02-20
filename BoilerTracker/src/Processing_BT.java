@@ -126,6 +126,18 @@ public class Processing_BT {
 		// distance constant divided by length between centers of contours
 		distanceFromTarget = DISTANCE_CONSTANT / lengthBetweenContours;
 
+		double adjustedDistance = distanceFromTarget - OFFSET_TO_FRONT;
+
+		if (showDebuggingStatements) {
+			if (distanceFromTarget != lastDistance) {
+
+				System.out.println("Distance: " + adjustedDistance); // testing
+			} // end if
+			lastDistance = distanceFromTarget;
+		} // end if
+
+		return adjustedDistance;
+	} // end if
 
 	public static double getAngle() {
 		// 8.5in is for the distance from center to center from goal, then
