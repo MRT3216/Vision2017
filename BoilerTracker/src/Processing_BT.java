@@ -30,7 +30,7 @@ public class Processing_BT {
 	static double lengthBetweenContours;
 	static double distanceFromTarget;
 	static double lengthError;
-	static double[] centerX;
+	static double[] centerY;
 
 	static double lastDistance;
 
@@ -101,22 +101,22 @@ public class Processing_BT {
 		} // end while
 	} // end processImage()
 
-	public static double returnCenterX() {
+	public static double returnCenterY() {
 		// This is the center value returned by GRIP thank WPI
 		if (!tracker.filterContoursOutput.isEmpty() && tracker.filterContoursOutput.size() >= 2) {
 			Rect r = Imgproc.boundingRect(tracker.filterContoursOutput.get(1));
 			Rect r1 = Imgproc.boundingRect(tracker.filterContoursOutput.get(0));
-			centerX = new double[] { r1.x + (r1.width / 2), r.x + (r.width / 2) };
+			centerY = new double[] { r1.y + (r1.height / 2), r.y + (r.height / 2) };
 			Imgcodecs.imwrite("output.png", matOriginal);
 
 			if (showDebuggingStatements) {
-				System.out.println("Center: " + centerX.length); // testing
+				System.out.println("Center: " + centerY.length); // testing
 			}
 
 			// this again checks for the 2 shapes on the target
-			if (centerX.length == 2) {
+			if (centerY.length == 2) {
 				// subtracts one another to get length in pixels
-				lengthBetweenContours = Math.abs(centerX[0] - centerX[1]);
+				lengthBetweenContours = Math.abs(centerY[0] - centerY[1]);
 			} // end if
 		} // end if
 		return lengthBetweenContours;
@@ -146,10 +146,10 @@ public class Processing_BT {
 		double angleToGoal = 0;
 		// Looking for the 2 blocks to actually start trig
 		if (!tracker.filterContoursOutput.isEmpty() && tracker.filterContoursOutput.size() >= 2) {
-			if (centerX.length == 2) {
+			if (centerY.length == 2) {
 				// this calculates the distance from the center of goal to
 				// center of webcam
-				double distanceFromCenterPixels = ((centerX[0] + centerX[1]) / 2) - (CAMERA_WIDTH / 2);
+				double distanceFromCenterPixels = ((centerY[0] + centerY[1]) / 2) - (CAMERA_WIDTH / 2);
 
 				// Converts pixels to inches using the constant from above.
 				double distanceFromCenterInch = distanceFromCenterPixels * constant;
