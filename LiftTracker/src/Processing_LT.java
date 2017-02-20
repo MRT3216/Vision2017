@@ -24,13 +24,15 @@ public class Processing_LT {
 	public static final double WIDTH_BETWEEN_TARGET = 8.5;
 	public static boolean shouldRun = true;
 	
-	public static final boolean enableNetworkTables = false; 
+	public static final boolean enableNetworkTables = true; 
 	static NetworkTable table;
 
 	static double lengthBetweenContours;
 	static double distanceFromTarget;
 	static double lengthError;
 	static double[] centerX;
+	
+	static double lastDistance;
 
 	public static void main(String[] args) {
 		if(enableNetworkTables) {
@@ -39,6 +41,7 @@ public class Processing_LT {
 			NetworkTable.setIPAddress("roborio-3216-FRC.local");
 			NetworkTable.initialize();
 			table = NetworkTable.getTable("LiftTracker");
+			System.out.println(NetworkTable.connections());
 		}
 
 		while (shouldRun) {
@@ -81,7 +84,7 @@ public class Processing_LT {
 			if(enableNetworkTables) {
 				table.putNumber("distanceFromTarget", distanceFromTarget());
 				table.putNumber("angleFromGoal", getAngle());
-				table.putNumberArray("centerX", centerX);
+				//table.putNumberArray("centerX", centerX);
 			}
 			else {
 				// Just call to test
@@ -112,7 +115,13 @@ public class Processing_LT {
 	public static double distanceFromTarget() {
 		// distance constant divided by length between centers of contours
 		distanceFromTarget = DISTANCE_CONSTANT / lengthBetweenContours;
-		System.out.println("Distance: " + (distanceFromTarget - OFFSET_TO_FRONT)); // testing
+		
+		if(distanceFromTarget != lastDistance) {
+			System.out.println("Distance: " + (distanceFromTarget - OFFSET_TO_FRONT)); // testing
+		}
+		
+		lastDistance = distanceFromTarget;
+		
 		return distanceFromTarget - OFFSET_TO_FRONT;
 	}
 
