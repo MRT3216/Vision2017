@@ -86,7 +86,7 @@ public class Processing_BT {
 		while (true) {
 			videoCapture.read(matOriginal);
 			tracker.process(matOriginal);
-			returnCenterX();
+			returnCenterY();
 			if (enableNetworkTables) {
 				table.putNumber("distanceFromTarget", distanceFromTarget());
 				table.putNumber("angleFromGoal", getAngle());
@@ -120,7 +120,7 @@ public class Processing_BT {
 			} // end if
 		} // end if
 		return lengthBetweenContours;
-	} // end returnCenterX
+	} // end returnCenterY
 
 	public static double distanceFromTarget() {
 		// distance constant divided by length between centers of contours
