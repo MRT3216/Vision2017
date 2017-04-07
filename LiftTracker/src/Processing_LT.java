@@ -38,7 +38,7 @@ public class Processing_LT {
 	public static void main(String[] args) {
 		if (enableNetworkTables) {
 			NetworkTable.setClientMode();
-			NetworkTable.setTeam(1806);
+			NetworkTable.setTeam(3216);
 			NetworkTable.setIPAddress("roborio-3216-FRC.local");
 			NetworkTable.initialize();
 			table = NetworkTable.getTable("LiftTracker");
@@ -104,9 +104,9 @@ public class Processing_LT {
 
 	public static double returnCenterX() {
 		// This is the center value returned by GRIP thank WPI
-		if (!tracker.filterContoursOutput.isEmpty() && tracker.filterContoursOutput.size() >= 2) {
-			Rect r = Imgproc.boundingRect(tracker.filterContoursOutput.get(1));
-			Rect r1 = Imgproc.boundingRect(tracker.filterContoursOutput.get(0));
+		if (!tracker.filterContoursOutput().isEmpty() && tracker.filterContoursOutput().size() >= 2) {
+			Rect r = Imgproc.boundingRect(tracker.filterContoursOutput().get(1));
+			Rect r1 = Imgproc.boundingRect(tracker.filterContoursOutput().get(0));
 			centerX = new double[] { r1.x + (r1.width / 2), r.x + (r.width / 2) };
 			Imgcodecs.imwrite("output.png", matOriginal);
 			
@@ -146,7 +146,7 @@ public class Processing_LT {
 		double constant = WIDTH_BETWEEN_TARGET / lengthBetweenContours;
 		double angleToGoal = 0;
 		// Looking for the 2 blocks to actually start trig
-		if (!tracker.filterContoursOutput.isEmpty() && tracker.filterContoursOutput.size() >= 2) {
+		if (!tracker.filterContoursOutput().isEmpty() && tracker.filterContoursOutput().size() >= 2) {
 			if (centerX.length == 2) {
 				// this calculates the distance from the center of goal to
 				// center of webcam
